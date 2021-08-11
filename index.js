@@ -1,8 +1,9 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const homRouts = require('./routes/hom');
-const cursesRouts = require('./routes/courses');
+const cursesRoutes = require('./routes/courses');
 const addRouts = require('./routes/add');
+const cardRoutes = require('./routes/card')
 
 
 const app = express();
@@ -18,8 +19,9 @@ app.set('views','views');
 app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 app.use('/',homRouts);
-app.use('/courses',cursesRouts);
+app.use('/courses',cursesRoutes);
 app.use('/add',addRouts);
+app.use('/card',cardRoutes)
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
