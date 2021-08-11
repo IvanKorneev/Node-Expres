@@ -2,6 +2,7 @@ const {v4: uuidv4} = require('uuid');
 
 const fs = require('fs');
 const path = require('path');
+const {static} = require("express");
 
 class Course {
     constructor(title, price, img) {
@@ -22,16 +23,16 @@ class Course {
 
     async save() {
         const courses = await Course.getAll();
-        courses.push(this.toJson())
+        courses.push(this.toJson());
 
         return new Promise((resolve, reject) => {
             fs.writeFile(path.join(__dirname, '..', 'data', 'courses.json'),
                 JSON.stringify(courses),
                 (err) => {
                     if (err) {
-                        reject(err)
+                        reject(err);
                     } else {
-                        resolve()
+                        resolve();
                     }
                 }
             );
@@ -45,9 +46,9 @@ class Course {
                 'utf-8',
                 (err, content) => {
                     if (err) {
-                        reject(err)
+                        reject(err);
                     } else {
-                        resolve(JSON.parse(content))
+                        resolve(JSON.parse(content));
                     }
                 }
             );
@@ -55,9 +56,28 @@ class Course {
     }
 
     static async getById(id) {
-        const courses = await Course.getAll()
-            return courses.find(c=>c.id ===id)
+        const courses = await Course.getAll();
+        return courses.find(c => c.id === id);
+    }
+
+    static async update(course) {
+        const courses = await Course.getAll();
+        const idx = courses.findIndex(c => c.id === course.id);
+        courses [idx] = course;
+        return new Promise((resolve, reject) => {
+            fs.writeFile(path.join(__dirname, '..', 'data', 'courses.json'),
+                JSON.stringify(courses),
+                (err) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                }
+            );
+        })
     }
 }
+
 
 module.exports = Course;
