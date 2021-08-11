@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
+const {v4: uuidv4} = require('uuid');
 
 const fs = require('fs');
 const path = require('path');
@@ -10,12 +10,13 @@ class Course {
         this.img = img
         this.id = uuidv4()
     }
-    toJson(){
+
+    toJson() {
         return ({
-            title : this.title,
-            price : this.price,
-            img:this.img,
-            id :this.id
+            title: this.title,
+            price: this.price,
+            img: this.img,
+            id: this.id
         })
     }
 
@@ -23,10 +24,10 @@ class Course {
         const courses = await Course.getAll();
         courses.push(this.toJson())
 
-        return new Promise((resolve, reject)=>{
-            fs.writeFile(path.join(__dirname,'..','data', 'courses.json'),
+        return new Promise((resolve, reject) => {
+            fs.writeFile(path.join(__dirname, '..', 'data', 'courses.json'),
                 JSON.stringify(courses),
-                (err)=>{
+                (err) => {
                     if (err) {
                         reject(err)
                     } else {
@@ -51,6 +52,11 @@ class Course {
                 }
             );
         });
+    }
+
+    static async getById(id) {
+        const courses = await Course.getAll()
+            return courses.find(c=>c.id ===id)
     }
 }
 
