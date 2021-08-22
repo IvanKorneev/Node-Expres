@@ -21,7 +21,7 @@ app.use(express.urlencoded({extended:true}));
 app.use('/',homRouts);
 app.use('/courses',cursesRoutes);
 app.use('/add',addRouts);
-app.use('/card',cardRoutes)
+app.use('/card',cardRoutes);
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
