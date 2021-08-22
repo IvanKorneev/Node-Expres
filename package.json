@@ -13,6 +13,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
+    "mongoose": "^5.13.7",
+    "mongose": "0.0.2-security",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
